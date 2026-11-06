@@ -1,199 +1,347 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Product</title>
     <link rel="stylesheet" href="./css/index.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.3.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* ========== PRODUCT PAGE ========== */
+        .product-page-layout {
+            display: grid;
+            grid-template-columns: 1fr 380px;
+            gap: 50px;
+            align-items: start;
+            margin: 40px 0 60px;
+        }
 
+        .product-main-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .product-header-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .main-img-box {
+            width: 100%;
+            height: 380px;
+            border: 1px solid #eaeaea;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #fafafa;
+            overflow: hidden;
+        }
+
+        .main-img-box img {
+            max-height: 85%;
+            max-width: 90%;
+            object-fit: contain;
+        }
+
+        .thumbs-row {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .thumb-img {
+            width: 70px;
+            height: 70px;
+            border: 1px solid #eaeaea;
+            border-radius: 8px;
+            object-fit: cover;
+            cursor: pointer;
+            background: #fafafa;
+            transition: border-color 0.2s;
+        }
+
+        .thumb-img:hover,
+        .thumb-img.active {
+            border-color: #ED3729;
+        }
+
+        /* Product details */
+        .product-details-header h2 {
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 0 15px;
+            line-height: 1.3;
+            color: #1e1e1e;
+        }
+
+        .price-tag {
+            font-size: 26px;
+            font-weight: 700;
+            color: #ED3729;
+            margin-bottom: 12px;
+        }
+
+        .vip-badge {
+            font-size: 13px;
+            color: #8e8e93;
+            margin-bottom: 25px;
+        }
+
+        .action-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .btn {
+            width: 100%;
+            height: 48px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-primary {
+            background: #ED3729;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: #C72B23;
+        }
+
+        .btn-dark {
+            background: #1e1e1e;
+            color: #fff;
+        }
+
+        .btn-dark:hover {
+            background: #333;
+        }
+
+        /* Specs */
+        .specs-section {
+            margin-top: 10px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eaeaea;
+            padding-bottom: 10px;
+            color: #1e1e1e;
+        }
+
+        .spec-group-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 25px 0 12px;
+            color: #1e1e1e;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f2f2f7;
+            font-size: 14px;
+            gap: 15px;
+        }
+
+        .spec-key {
+            color: #8e8e93;
+            width: 40%;
+            flex-shrink: 0;
+        }
+
+        .spec-value {
+            color: #1e1e1e;
+            width: 60%;
+            text-align: right;
+            font-weight: 500;
+        }
+
+        /* Sidebar */
+        .sidebar-column {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: sticky;
+            top: 20px;
+        }
+
+        .info-card {
+            background: #f9f9fb;
+            padding: 20px;
+            border-radius: 12px;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .info-card h4 {
+            font-size: 14px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #1e1e1e;
+        }
+
+        .info-card a {
+            color: #007aff;
+            text-decoration: none;
+        }
+
+        .info-card a:hover {
+            text-decoration: underline;
+        }
+
+        .info-card ul {
+            padding-left: 18px;
+            margin-top: 8px;
+        }
+
+        .info-card ul li {
+            margin-bottom: 4px;
+        }
+
+        /* ========== RESPONSIVE ========== */
+
+        /* Large tablet */
+        @media screen and (max-width: 1100px) {
+            .product-page-layout {
+                grid-template-columns: 1fr 320px;
+                gap: 35px;
+            }
+
+            .main-img-box {
+                height: 320px;
+            }
+        }
+
+        /* Tablet */
+        @media screen and (max-width: 900px) {
+            .product-page-layout {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .sidebar-column {
+                position: static;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 15px;
+            }
+
+            .product-header-section {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        /* Mobile landscape / small tablet */
+        @media screen and (max-width: 768px) {
+            .product-page-layout {
+                margin: 25px 0 40px;
+            }
+
+            .product-header-section {
+                grid-template-columns: 1fr;
+                gap: 25px;
+            }
+
+            .main-img-box {
+                height: 300px;
+            }
+
+            .product-details-header h2 {
+                font-size: 20px;
+            }
+
+            .price-tag {
+                font-size: 22px;
+            }
+
+            .sidebar-column {
+                grid-template-columns: 1fr;
+            }
+
+            .spec-key {
+                width: 45%;
+            }
+
+            .spec-value {
+                width: 55%;
+            }
+        }
+
+        /* Mobile */
+        @media screen and (max-width: 480px) {
+            .main-img-box {
+                height: 260px;
+                border-radius: 10px;
+            }
+
+            .thumb-img {
+                width: 60px;
+                height: 60px;
+            }
+
+            .product-details-header h2 {
+                font-size: 18px;
+            }
+
+            .price-tag {
+                font-size: 20px;
+            }
+
+            .btn {
+                height: 46px;
+                font-size: 14px;
+            }
+
+            .section-title {
+                font-size: 18px;
+            }
+
+            .spec-group-title {
+                font-size: 15px;
+            }
+
+            .spec-row {
+                flex-direction: column;
+                gap: 4px;
+                padding: 10px 0;
+            }
+
+            .spec-key,
+            .spec-value {
+                width: 100%;
+                text-align: left;
+            }
+
+            .spec-value {
+                font-weight: 600;
+            }
+
+            .info-card {
+                padding: 16px;
+            }
+        }
+    </style>
 </head>
-<style>
-    .product-page-layout {
-      display: grid;
-      grid-template-columns: 1fr 380px;
-      gap: 50px;
-      align-items: start;
-      margin: 40px 0 ;
-    }
-    .product-main-info {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-    }
-
-    .product-header-section {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 30px;
-    }
-    .gallery {
-      display: flex;
-      flex-direction: column;
-      gap: 15px;
-    }
-
-    .main-img-box {
-      width: 100%;
-      height: 380px;
-      border: 1px solid #eaeaea;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #fafafa;
-    }
-
-    .main-img-box img {
-      max-height: 80%;
-      object-fit: contain;
-    }
-
-    .thumbs-row {
-      display: flex;
-      gap: 10px;
-    }
-
-    .thumb-img {
-      width: 70px;
-      height: 70px;
-      border: 1px solid #eaeaea;
-      border-radius: 8px;
-      object-fit: cover;
-      cursor: pointer;
-      background: #fafafa;
-      transition: border-color 0.2s;
-    }
-
-    .thumb-img:hover {
-      border-color: #ff3b30;
-    }
-    .product-details-header , h2 {
-      font-size: 26px;
-      font-weight: 700;
-      margin: 15px 0 15px 0 ;
-      line-height: 1.3;
-    }
-
-    .price-tag {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 20px;
-    }
-
-    .vip-badge {
-      font-size: 13px;
-      color: #8e8e93;
-      margin-bottom: 25px;
-    }
-
-    .action-buttons {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-    }
-
-    .btn {
-      width: 100%;
-      height: 48px;
-      border: none;
-      border-radius: 8px;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .btn-primary {
-      background: #ff3823;
-      color: #fff;
-    }
-    .btn-primary:hover {
-      background: #e02d19;
-    }
-
-    .btn-dark {
-      background: #1e1e1e;
-      color: #fff;
-    }
-    .btn-dark:hover {
-      background: #333333;
-    }
-
-    /* Specifications Section */
-    .specs-section {
-      margin-top: 20px;
-    }
-
-    .section-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 20px;
-      border-bottom: 1px solid #eaeaea;
-      padding-bottom: 10px;
-    }
-
-    .spec-group-title {
-      font-size: 16px;
-      font-weight: 700;
-      margin: 25px 0 12px 0;
-      color: #1e1e1e;
-    }
-
-    .spec-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid #f2f2f7;
-      font-size: 14px;
-    }
-
-    .spec-key {
-      color: #8e8e93;
-      width: 40%;
-    }
-
-    .spec-value {
-      color: #1e1e1e;
-      width: 60%;
-      text-align: right;
-      font-weight: 500;
-    }
-
-    /* Right Sidebar Column */
-    .sidebar-column {
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-      position: sticky;
-      top: 20px;
-    }
-
-    .info-card {
-      background: #f9f9fb;
-      padding: 20px;
-      border-radius: 12px;
-      font-size: 13px;
-      color: #333;
-      line-height: 1.5;
-    }
-
-    .info-card h4 {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 10px;
-    }
-
-    .info-card a {
-      color: #007aff;
-      text-decoration: none;
-    }
-
-    .info-card ul {
-      padding-left: 18px;
-      margin-top: 8px;
-    }
-  </style>
 <body>
     <header>
         <nav>
@@ -204,32 +352,41 @@
                         <p class="wh">Ташкент</p>
                     </div>
                     <ul class="nav-list">
-                       <li><a class="wh" href="./index.html">Главная</a></li>
-                        <li><a class="wh" href="">B2B продажи</a></li>
-                        <li><a class="wh" href="">Покупка в рассрочку</a></li>
-                        <li><a class="wh" href="">Способы оплаты</a></li>
-                        <li><a class="wh" href="">Гарантия на товары</a></li>
+                        <li><a class="wh" href="./index.html">Главная</a></li>
+                        <li><a class="wh" href="#">B2B продажи</a></li>
+                        <li><a class="wh" href="#">Покупка в рассрочку</a></li>
+                        <li><a class="wh" href="#">Способы оплаты</a></li>
+                        <li><a class="wh" href="#">Гарантия на товары</a></li>
                     </ul>
                     <ul class="nav-list2">
-                        <li style="display: flex ; gap: 5px;"><i style="color: white;" class="fa-solid fa-phone"></i><p class="wh">+998 95 123 55 88</p></li>
-                        <li><select class="wh1"  id="langselect">
-                            <option class="wh1" value="ru">Rus</option>
-                            <option class="wh1" value="uz">Uz</option>
-                            <option class="wh1" value="eng">Eng</option>
-                        </select></li>
-                           <i class="bars fa-solid fa-bars"></i>
+                        <li style="display: flex; gap: 5px; align-items: center;">
+                            <i style="color: white;" class="fa-solid fa-phone"></i>
+                            <p class="wh">+998 95 123 55 88</p>
+                        </li>
+                        <li>
+                            <select class="wh1" id="langselect">
+                                <option value="ru">Rus</option>
+                                <option value="uz">Uz</option>
+                                <option value="eng">Eng</option>
+                            </select>
+                        </li>
+                        <i class="bars fa-solid fa-bars"></i>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
+
     <main>
+        <!-- Search -->
         <section class="searchs">
             <div class="container">
                 <div class="se-box1">
-                   <a href="./index.html"><img src="./assets/images/logo2.png" alt="Logo "></a>
+                    <a href="./index.html">
+                        <img src="./assets/images/logo2.png" alt="Logo">
+                    </a>
                     <div class="inp-box">
-                        <select class="inp" name="" id="">
+                        <select class="inp">
                             <option value="">Все категории</option>
                             <option value="">Телефоны, планшеты</option>
                             <option value="">Ноутбуки</option>
@@ -254,20 +411,24 @@
                 </div>
             </div>
         </section>
+
+        <!-- Categories -->
         <section class="kategories">
             <div class="container">
                 <div class="kat-box">
-                    <button class="head-btn3"><i class="fa-solid fa-bars"></i>Категории</button>
+                    <button class="head-btn3">
+                        <i class="fa-solid fa-bars"></i> Категории
+                    </button>
                     <ul class="kat-list">
-                        <li><a href="">Наши магазины</a></li>
-                        <li><a href="">Моноблоки</a></li>
-                        <li><a href="">Телефоны, планшеты</a></li>
-                        <li><a href="">Ноутбуки</a></li>
-                        <li><a href="">Комплектующие</a></li>
-                        <li><a href="">Сетевое оборудование</a></li>
-                        <li><a href="">Оргтехника</a></li>
+                        <li><a href="#">Наши магазины</a></li>
+                        <li><a href="#">Моноблоки</a></li>
+                        <li><a href="#">Телефоны, планшеты</a></li>
+                        <li><a href="#">Ноутбуки</a></li>
+                        <li><a href="#">Комплектующие</a></li>
+                        <li><a href="#">Сетевое оборудование</a></li>
+                        <li><a href="#">Оргтехника</a></li>
                     </ul>
-                      <select class="kat-listh">
+                    <select class="kat-listh">
                         <option value="">Наши магазины</option>
                         <option value="">Моноблоки</option>
                         <option value="">Телефоны, планшеты</option>
@@ -279,195 +440,185 @@
                 </div>
             </div>
         </section>
+
+        <!-- Product -->
         <section>
             <div class="container">
-    <div class="product-page-layout">
-      
-      <!-- Left Column -->
-      <div class="product-main-info">
-        
-        <div class="product-header-section">
-          <!-- Gallery -->
-          <div class="gallery">
-            <div class="main-img-box">
-              <img src="./assets/images/pro-1 img.jpg" alt="Product ">
+                <div class="product-page-layout">
+
+                    <!-- Left Column -->
+                    <div class="product-main-info">
+                        <div class="product-header-section">
+                            <!-- Gallery -->
+                            <div class="gallery">
+                                <div class="main-img-box">
+                                    <img src="./assets/images/pro-1 img.jpg" alt="Product">
+                                </div>
+                                <div class="thumbs-row">
+                                    <img src="./assets/images/pro-1 img.jpg" class="thumb-img active" alt="thumb">
+                                    <img src="./assets/images/pro-1 img.jpg" class="thumb-img" alt="thumb">
+                                    <img src="./assets/images/pro-1 img.jpg" class="thumb-img" alt="thumb">
+                                </div>
+                            </div>
+
+                            <!-- Details + Buttons -->
+                            <div class="product-details-header">
+                                <h2>Телефон TECNO Spark 6 Go KE5j 3/64GB Ice Jadeite</h2>
+                                <div class="price-tag">1 304 000 сум</div>
+                                <div class="vip-badge">💎 VIP скидки для VIP клиентов</div>
+
+                                <div class="action-buttons">
+                                    <button class="btn btn-primary">Купить сейчас</button>
+                                    <button class="btn btn-dark">Купить в рассрочку сейчас</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Specifications -->
+                        <div class="specs-section">
+                            <h2 class="section-title">Технические параметры</h2>
+
+                            <div class="spec-row">
+                                <span class="spec-key">Состояние</span>
+                                <span class="spec-value">Новый</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Гарантия</span>
+                                <span class="spec-value">1 год официальной гарантии</span>
+                            </div>
+
+                            <div class="spec-group-title">Классификация</div>
+                            <div class="spec-row">
+                                <span class="spec-key">Тип</span>
+                                <span class="spec-value">Смартфон</span>
+                            </div>
+
+                            <div class="spec-group-title">Аудитория</div>
+                            <div class="spec-row">
+                                <span class="spec-key">Подходит для</span>
+                                <span class="spec-value">Руководителей, Студентов и учителей, Офисных сотрудников</span>
+                            </div>
+
+                            <div class="spec-group-title">Дисплей</div>
+                            <div class="spec-row">
+                                <span class="spec-key">Поверхность</span>
+                                <span class="spec-value">Матовая</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Сенсорный экран</span>
+                                <span class="spec-value">Да</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Частота смены кадров</span>
+                                <span class="spec-value">60 Гц</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Тип матрицы</span>
+                                <span class="spec-value">IPS</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Разрешение</span>
+                                <span class="spec-value">1600x720</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Диагональ</span>
+                                <span class="spec-value">6.52 дюйма</span>
+                            </div>
+
+                            <div class="spec-group-title">Процессор</div>
+                            <div class="spec-row">
+                                <span class="spec-key">Бренд</span>
+                                <span class="spec-value">MediaTek</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Модель</span>
+                                <span class="spec-value">Helio A25</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Количество ядер</span>
+                                <span class="spec-value">8</span>
+                            </div>
+
+                            <div class="spec-group-title">Оперативная память</div>
+                            <div class="spec-row">
+                                <span class="spec-key">Объем оперативной памяти</span>
+                                <span class="spec-value">3 ГБ</span>
+                            </div>
+                            <div class="spec-row">
+                                <span class="spec-key">Встроенная память</span>
+                                <span class="spec-value">64 ГБ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right Sidebar -->
+                    <div class="sidebar-column">
+                        <div class="info-card">
+                            <h4>🔄 30 дней на обмен и возврат</h4>
+                            <p>Если купите товар сегодня, можете вернуть или обменять. <a href="#">Подробнее о программе</a>.</p>
+                        </div>
+
+                        <div class="info-card">
+                            <h4>❓ Есть вопросы?</h4>
+                            <p>Телефон: <a href="tel:+998999904527">+998 99 990 45 27</a></p>
+                            <p>Telegram: <a href="#">@mixel_uz</a></p>
+                            <p>Эл. почта: <a href="mailto:mixel@email.uz">mixel@email.uz</a></p>
+                        </div>
+
+                        <div class="info-card">
+                            <h4>🚚 Доставка: <span style="color: #34c759; font-weight: normal;">Бесплатно</span></h4>
+                            <h4 style="margin-top: 15px;">📦 Способ оплаты:</h4>
+                            <ul>
+                                <li>Наличными (При Доставке)</li>
+                                <li>Payme / Click</li>
+                                <li>Перечислением с НДС</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <div class="thumbs-row">
-              <img src="./assets/images/pro-1 img.jpg" class="thumb-img" alt="thumb">
-              <img src="./assets/images/pro-1 img.jpg" class="thumb-img" alt="thumb">
-              <img src="./assets/images/pro-1 img.jpg" class="thumb-img" alt="thumb">
-            </div>
-          </div>
-
-          <div class="product-details-header">
-            <h2>Телефон TECNO Spark 6 Go KE5j 3/64GB Ice Jadeiteesc</h2>
-            <div class="price-tag">1304000 сум</div>
-            <div class="vip-badge">💎 VIP скидки для VIP клиентов</div>
-            
-            <div class="action-buttons">
-              <button class="btn btn-primary">Купить сейчас</button>
-              <button class="btn btn-dark">Купить в рассрочку сейчас</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Specifications Section -->
-        <div class="specs-section">
-          <h2 class="section-title">Технические параметры</h2>
-
-          <div class="spec-row">
-            <span class="spec-key">Состояние</span>
-            <span class="spec-value">Новый</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">Гарантия</span>
-            <span class="spec-value">1 год официальной гарантии</span>
-          </div>
-
-          <!-- Klassifikatsiya -->
-          <div class="spec-group-title">Классификация</div>
-          <div class="spec-row">
-            <span class="spec-key">Тип</span>
-            <span class="spec-value">Ультрабук</span>
-          </div>
-
-          <!-- Auditoriya -->
-          <div class="spec-group-title">Аудитория</div>
-          <div class="spec-row">
-            <span class="spec-key">Подходит для</span>
-            <span class="spec-value">Руководителей, Студентов и учителей, Офисных сотрудников</span>
-          </div>
-
-          <!-- Displey -->
-          <div class="spec-group-title">Дисплей</div>
-          <div class="spec-row">
-            <span class="spec-key">Поверхность</span>
-            <span class="spec-value">Матовая</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">Сенсорный экран</span>
-            <span class="spec-value">Нет</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">Частота смены кадров</span>
-            <span class="spec-value">60 Гц</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">Тип матрицы</span>
-            <span class="spec-value">IPS Retina</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">Разрешение</span>
-            <span class="spec-value">2560x1600 Пикселей</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">Диагональ</span>
-            <span class="spec-value">13.3 дюйма</span>
-          </div>
-
-          <!-- Protsessor -->
-          <div class="spec-group-title">Процессор</div>
-          <div class="spec-row">
-            <span class="spec-key">Бренд</span>
-            <span class="spec-value">Intel®</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">Семейство</span>
-            <span class="spec-value">Core™ i7</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">Модель</span>
-            <span class="spec-value">i7-1065G7</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">Количество ядер</span>
-            <span class="spec-value">4</span>
-          </div>
-
-          <!-- Operativ xotira -->
-          <div class="spec-group-title">Оперативная память</div>
-          <div class="spec-row">
-            <span class="spec-key">Объем оперативной памяти</span>
-            <span class="spec-value">8 ГБ</span>
-          </div>
-          <div class="spec-row">
-            <span class="spec-key">Тип памяти</span>
-            <span class="spec-value">LPDDR4X</span>
-          </div>
-        </div>
-
-      </div>
-
-      <!-- Right Sidebar Column -->
-      <div class="sidebar-column">
-        <div class="info-card">
-          <h4>🔄 30 дней на обмен и возврат</h4>
-          <p>Если купите товар сегодня, до 06 мая можете вернуть или обменять. <a href="#">Подробнее о программе</a>.</p>
-        </div>
-
-        <div class="info-card">
-          <h4>❓ Есть вопросы?</h4>
-          <p>Телефон: <a href="tel:+998999904527">+998 99 990 45 27</a></p>
-          <p>Telegram: <a href="#">@mixel_uz</a></p>
-          <p>Эл. почта: <a href="mailto:mixel@email.uz">mixel@email.uz</a></p>
-        </div>
-
-        <div class="info-card">
-          <h4>🚚 Доставка: <span style="color: #34c759; font-weight: normal;">Бесплатно</span></h4>
-          <h4 style="margin-top: 15px;">📦 Способ оплаты:</h4>
-          <ul>
-            <li>Наличными (При Доставке)</li>
-            <li>Payme / Click</li>
-            <li>Перечислением с НДС</li>
-          </ul>
-        </div>
-      </div>
-
-    </div>
-  </div>
         </section>
-      
-      
     </main>
+
     <footer>
-       <div class="container">
-        <div class="foot-box">
-               <ul class="foot-lis1">
-            <li style="display: flex; gap: 7px;"><img src="./assets/images/logo1.png" alt="Logo"> </li>
-            <li class="wh">График работы колл-центра <br>Понедельник - Суббота: 9:00–18:00</li>
-            <li class="wh">Колл-центр: <br>+ 998 (71) 205-93-93</li>
-            <li class="wh"><img src="./assets/images/Мы в соцсетях.png" alt="Logos"></li>
-        </ul>
-        <ul class="foot-list2">
-            <li><p class="wh" style="font-size: 20px; margin-bottom: 15px;">Категории</p></li>
-            <li><a class="wh" href="#Ноутбуки">Ноутбуки</a></li>
-            <li><a class="wh" href="#кресла">Игровые кресла</a></li>
-            <li><a class="wh" href="#Телефоны">Телефоны</a></li>
-            <li><a class="wh" href="#Моноблоки">Моноблоки</a></li>
-            <li><a class="wh" href="3Модули памяти">Модули памяти</a></li>
-        </ul>
-        <ul class="foot-list2">
-            <li><p class="wh" style="font-size: 20px; margin-bottom: 15px;">Общее</p></li>
-            <li><a class="wh" href="#Новости">Новости</a></li>
-            <li><a class="wh" href="#О нас">О нас</a></li>
-            <li><a class="wh" href="#Наши магазины">Наши магазины</a></li>
-            <li><a class="wh" href="#Политика">Политика конфиденциальности</a></li>
-            <li><a class="wh" href="Правила">Правила программы лояльности</a></li>
-            <li><a class="wh" href="#Контакты">Контакты</a></li>
-        </ul>
-         <ul class="foot-list2">
-            <li><p class="wh" style="font-size: 20px; margin-bottom: 15px;">Покупателям</p></li>
-            <li><a class="wh" href="#Покупка">Покупка в рассрочку</a></li>
-            <li><a class="wh" href="#Доставка ">Доставка и оплата</a></li>
-            <li><a class="wh" href="#cashback">Правила покупок с cashback</a></li>
-            <li><a class="wh" href="#Возврат ">Возврат / Обмен</a></li>
-            <li><a class="wh" href="#Правила">Правила пользования купонами</a></li>
-        </ul>
+        <div class="container">
+            <div class="foot-box">
+                <ul class="foot-lis1">
+                    <li><img src="./assets/images/logo1.png" alt="Logo"></li>
+                    <li class="wh">График работы колл-центра<br>Понедельник - Суббота: 9:00–18:00</li>
+                    <li class="wh">Колл-центр:<br>+998 (71) 205-93-93</li>
+                    <li class="wh"><img src="./assets/images/Мы в соцсетях.png" alt="Social"></li>
+                </ul>
+                <ul class="foot-list2">
+                    <li><p class="wh">Категории</p></li>
+                    <li><a class="wh" href="#">Ноутбуки</a></li>
+                    <li><a class="wh" href="#">Игровые кресла</a></li>
+                    <li><a class="wh" href="#">Телефоны</a></li>
+                    <li><a class="wh" href="#">Моноблоки</a></li>
+                    <li><a class="wh" href="#">Модули памяти</a></li>
+                </ul>
+                <ul class="foot-list2">
+                    <li><p class="wh">Общее</p></li>
+                    <li><a class="wh" href="#">Новости</a></li>
+                    <li><a class="wh" href="#">О нас</a></li>
+                    <li><a class="wh" href="#">Наши магазины</a></li>
+                    <li><a class="wh" href="#">Политика конфиденциальности</a></li>
+                    <li><a class="wh" href="#">Правила программы лояльности</a></li>
+                    <li><a class="wh" href="#">Контакты</a></li>
+                </ul>
+                <ul class="foot-list2">
+                    <li><p class="wh">Покупателям</p></li>
+                    <li><a class="wh" href="#">Покупка в рассрочку</a></li>
+                    <li><a class="wh" href="#">Доставка и оплата</a></li>
+                    <li><a class="wh" href="#">Правила покупок с cashback</a></li>
+                    <li><a class="wh" href="#">Возврат / Обмен</a></li>
+                    <li><a class="wh" href="#">Правила пользования купонами</a></li>
+                </ul>
+            </div>
         </div>
-      
-       </div>
     </footer>
+
     <script type="module" src="./js/api.js"></script>
-    
 </body>
 </html>
