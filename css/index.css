@@ -174,3 +174,60 @@ footer {
 
     
 }
+.bars {
+    display: none;
+}
+.kat-listh {
+    display: none;
+}
+  @media (max-width: 768px) {
+       .container {
+           width: 90%;
+           margin: 0 auto;
+       }
+       .hero-img {
+           width: 100%;
+           object-fit: contain;
+        
+       }
+       .nav-list {
+        display: none;
+       }
+       .bars {
+        display: block;
+        color: white;
+        cursor: pointer;
+       }
+       select {
+        display: none;
+       }
+       header{
+        width: 100%;
+       }
+       .icons {
+        display: flex;
+        gap: 15px;
+       }
+       .kat-list{
+        display: none;
+     
+       }
+       .kat-listh {
+        display: block;
+        color : white;
+        background-color: #ED3729;
+       
+        border-radius: 5px;
+        
+       
+       }
+       
+       option {
+        padding: 5px 10px;
+       }
+       .kat-box {
+        display: flex;
+        justify-content: space-between;
+     
+       }
+    }

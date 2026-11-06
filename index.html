@@ -66,7 +66,7 @@
     /* ===== KATEGORIYALAR ===== */
     .kat-box {
         flex-direction: column;
-        gap: 0;
+        gap: 20px;
         padding: 12px 0 20px 0;
     }
     .kat-list {
@@ -131,6 +131,17 @@
         align-items: center;
         gap: 12px;
     }
+    @media (max-width: 768px) {
+       .container {
+           width: 90%;
+           margin: 0 auto;
+       }
+       .hero-img {
+           width: 100%;
+           object-fit: contain;
+           display: none;
+       }
+    }
 }
 
 </style>
@@ -157,6 +168,7 @@
                             <option class="wh1" value="uz">Uz</option>
                             <option class="wh1" value="eng">Eng</option>
                         </select></li>
+                        <i class="bars fa-solid fa-bars"></i>
                     </ul>
                 </div>
             </div>
@@ -206,6 +218,15 @@
                         <li><a href="">Сетевое оборудование</a></li>
                         <li><a href="">Оргтехника</a></li>
                     </ul>
+                    <select class="kat-listh">
+                        <option value="">Наши магазины</option>
+                        <option value="">Моноблоки</option>
+                        <option value="">Телефоны, планшеты</option>
+                        <option value="">Ноутбуки</option>
+                        <option value="">Комплектующие</option>
+                        <option value="">Сетевое оборудование</option>
+                        <option value="">Оргтехника</option>
+                    </select>
                 </div>
             </div>
         </section>
